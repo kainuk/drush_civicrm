@@ -1,0 +1,14 @@
+{
+  "name": "drupal/drush_civicrm",
+  "type": "drupal-module",
+  "description": "CiviCRM Commands for Drush",
+  "keywords": ["Drupal", "CiviCRM"],
+  "license": "GPL-2.0+",
+  "homepage": "https://github.com/kainuk/drush_civicrm",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://github.com/kainuk/drush_civicrm/issues",
+    "source": "https://github.com/kainuk/drush_civicrm"
+  },
+  "require": { }
+}

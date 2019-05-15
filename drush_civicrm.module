@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains drush_civicrm.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function drush_civicrm_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the drush_civicrm module.
+    case 'help.page.drush_civicrm':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('CiviCRM Commands for Drush') . '</p>';
+      return $output;
+
+    default:
+  }
+}

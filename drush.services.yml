@@ -1,0 +1,5 @@
+services:
+  drush_civicrm.commands:
+    class: \Drupal\drush_civicrm\Commands\CiviCRMCommands
+    tags:
+      - { name: drush.command }

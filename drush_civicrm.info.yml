@@ -1,0 +1,7 @@
+name: 'CiviCRM Drush'
+type: module
+description: 'CiviCRM Commands for Drush'
+core: 8.x
+package: 'CiviCRM'
+dependencies:
+  - civicrm
