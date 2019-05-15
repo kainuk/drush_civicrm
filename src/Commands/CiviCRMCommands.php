@@ -30,6 +30,14 @@ class CiviCRMCommands extends DrushCommands {
     'in' => 'args',
     'out' => 'json',
   ]) {
+
+    if(!in_array($options['out'],['json','pretty'])){
+      throw new \RuntimeException("Unknown option --out={$options['out']}, must be json or pretty");
+    }
+    if(!in_array($options['in'],['json','args'])){
+      throw new \RuntimeException("Unknown option --in={$options['in']}, must be args or pretty");
+    }
+
     $DEFAULTS = ['version' => 3];
     $args = $commands;
     list($entity, $action) = explode('.', $args[0]);
@@ -38,11 +46,25 @@ class CiviCRMCommands extends DrushCommands {
     $user = User::load($options['uid']);
     CRM_Core_BAO_UFMatch::synchronize($user, FALSE, 'Drupal', 'Individual');
     $params = $DEFAULTS;
-    foreach ($args as $arg) {
-      $matches = explode('=', $arg);
-      $params[$matches[0]] = $matches[1];
+
+    if($options['in']=='json'){
+      $json = stream_get_contents(STDIN);
+      if (empty($json)) {
+        $params = $DEFAULTS;
+      }
+      else {
+        $params = array_merge($DEFAULTS, json_decode($json, TRUE));
+      }
+    } else
+      {
+
+      foreach ($args as $arg) {
+        $matches = explode('=', $arg);
+        $params[$matches[0]] = $matches[1];
+      }
     }
     $result = civicrm_api($entity, $action, $params);
-    return json_encode($result, JSON_PRETTY_PRINT);
+
+    return $options['out']=='pretty'?print_r($result,true):json_encode($result, JSON_PRETTY_PRINT);
   }
 }
